@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>JOB PORTAL FORM</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/job.css" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            padding-top: 80px;
+          background: url('https://c0.wallpaperflare.com/preview/846/575/803/application-request-work-looking-for-a-job.jpg');
+            background-size: cover;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            height: 50px;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Change the color on hover */
+        }
+
+        .logo img {
+            height: 30px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Adjusted the max-width for a more compact form */
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            margin: 80px auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            overflow-y: auto; /* Added a scroll pane for smaller screens */
+            max-height: 70vh; /* Set a maximum height for the scroll pane */
+        }
+
+        .form-title {
+            font-size: 26px;
+            font-weight: 600;
+            text-align: center;
+            padding-bottom: 20px;
+            color: white;
+        }
+
+        .main-user-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 20px 0;
+        }
+
+        .user-input-box {
+            width: 48%; /* Adjusted the width for better alignment */
+            padding-bottom: 15px;
+        }
+
+        .user-input-box label {
+            width: 100%;
+            color: white;
+            font-size: 16px;
+            font-weight: 400;
+            margin: 5px 0;
+        }
+
+        .user-input-box input {
+            height: 30px;
+            width: 100%;
+            border-radius: 7px;
+            outline: none;
+            border: 1px solid grey;
+            padding: 0 10px;
+        }
+
+        .form-submit-btn {
+            margin-top: 20px;
+            text-align: center; /* Centered the submit button */
+        }
+
+        .form-submit-btn input {
+            width: 100%;
+            font-size: 16px;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            color: #fff;
+            background: #38845c;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .form-submit-btn input:hover {
+            background: #38cc5d;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li class="logo"><img src="/css/rwanda.png" alt="Logo"></li>
+            <li><h3>RWANDA JOB SEEKING PORTAL</h3></li>
+            <li>
+                <div class="home">
+                    <a th:href="@{/Dashboard}">Home</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <h1 class="form-title">JOB PORTAL FORM</h1>
+    <form action="#" th:action="@{/jobs/save}" th:object="${job}" method="post" enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}">
+        <!--        <input type="hidden" name="userId" th:value="${userId}">-->
+        <input type="hidden" name="AuthId" th:value="${AuthId ?: 1}" />
+        <div class="main-user-info">
+
+            <div class="user-input-box">
+                <div th:if="${#fields.hasErrors('jobTitle')}">
+                    <span th:if="${#fields.hasErrors('JobTitle')}" th:errors="*{JobTitle}" class="error"></span>
+                </div>
+                <label for="jobTitle">Job Title</label>
+                <input type="text" id="jobTitle" name="jobTitle" th:field="*{jobTitle}" placeholder="Enter Job Title" required/>
+                <!--                <span class="error" th:if="${#fields.hasErrors('jobTitle')}" th:errors="*{jobTitle}"></span>-->
+            </div>
+            <div class="user-input-box">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" th:field="*{location}" placeholder="Enter Location" required/>
+                <span class="error" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>
+            </div>
+            <div class="user-input-box">
+                <label for="experience">Experience</label>
+                <input type="number" id="experience" name="experience" th:field="*{experience}" placeholder="Enter Experience" required/>
+                <span class="error" th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}"></span>
+            </div>
+            <div class="user-input-box">
+                <label for="skill">Skills Required</label>
+                <input type="text" id="skill" name="skill" th:field="*{skill}" placeholder="Enter Skills Required" required/>
+                <span class="error" th:if="${#fields.hasErrors('skill')}" th:errors="*{skill}"></span>
+            </div>
+            <div class="user-input-box">
+                <label for="category">Category</label>
+                <select name="category" id="category" th:field="*{category}" required >
+                    <option value="">Select Category</option>
+                    <option value="IT">Information and Technology</option>
+                    <option value="Business">Business</option>
+                    <option value="Healthcare">Health Care</option>
+                    <option value="Gvt and Public Service">Government and Public Service</option>
+                    <option value="Trades and Construction">Trades and Construction</option>
+                    <option value="Science and Engineering">Science and Engineering</option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></span>
+            </div>
+            <div class="user-input-box">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Enter Phone Number" required/>
+                <span class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+            </div>
+            <div class="user-input-box">
+                <label for="level">Level</label>
+                <select name="level" id="level" th:field="*{level}" required>
+                    <option value="">Select Level</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <span class="error" th:if="${#fields.hasErrors('level')}" th:errors="*{level}"></span>
+            </div>
+
+            <div class="user-input-box">
+                <label for="companyEmail">Company Email</label>
+                <input type="text" id="companyEmail" name="companyEmail" th:field="*{companyEmail}" placeholder="Enter Company Email" required/>
+                <span class="error" th:if="${#fields.hasErrors('companyEmail')}" th:errors="*{companyEmail}"></span>
+            </div>
+
+            <div class="user-input-box">
+                <label for="jobDescription">Job Description</label>
+                <textarea rows="4" cols="20" id="jobDescription" name="jobDescription" th:field="*{jobDescription}" placeholder="Enter Job Description" required></textarea>
+                <span class="error" th:if="${#fields.hasErrors('jobDescription')}" th:errors="*{jobDescription}"></span>
+            </div>
+
+            <div class="user-input-box">
+                <label for="deadline">Application Deadline</label>
+                <input type="date" id="deadline" name="deadline" th:field="*{deadline}" placeholder="Enter the deadline" required/>
+                <span class="error" th:if="${#fields.hasErrors('deadline')}" th:errors="*{deadline}"></span>
+            </div>
+
+            <div class="user-input-box">
+                <label for="guide">Application Guidelines</label>
+                <input type="file" id="guide" name="guide" accept="application/pdf" required/>
+
+            </div>
+
+            <div class="form-submit-btn">
+                <input type="submit" value="Register">
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

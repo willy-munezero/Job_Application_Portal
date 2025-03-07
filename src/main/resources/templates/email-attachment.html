@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Attachment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/email-attachment.css}">
+</head>
+<body>
+<div class="form-container">
+    <h2>Email</h2>
+    <form action="" th:action="@{/email/sendEmailWithAttachment}" method="post" enctype="multipart/form-data">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required="" placeholder="Name">
+        <label for="email">Recipient Email:</label>
+        <input type="email" name="mailTo" id="email" required="" placeholder="Recipient Email">
+        <label for="subject">Subject:</label>
+        <input type="text" name="subject" id="subject" required="" placeholder="Subject">
+        <label for="attachFile">Upload your CV:</label>
+        <input type="file" name="attachFile" id="attachFile"  placeholder="Select File">
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" required="" placeholder="Message.."></textarea>
+        <input type="submit" value="Send">
+        <div class="home">
+            <a th:href="@{/Dashboard}">Home</a>
+        </div>
+    </form>
+</div>
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

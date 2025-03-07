@@ -1,0 +1,261 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Job Application Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styleList.css}" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-image: url('/css/web.jpeg');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            font-size: 18px;
+            color: #fff;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        header h3 {
+            margin: 0;
+            color: #fff;
+        }
+
+        .logo img {
+            height: 30px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+        }
+
+        .centered {
+            margin-top: 80px; /* Adjusted margin to accommodate the fixed navbar */
+        }
+
+        .btn {
+            font-weight: bold;
+        }
+
+        .btn-bold {
+            font-weight: bold;
+        }
+
+        .form-inline {
+            margin-left: 0; /* Adjusted margin for responsiveness */
+        }
+
+        .table-primary th,
+        .table-primary td,
+        .table-primary thead th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .table-striped tbody tr:nth-of-type(even) {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .table-bordered {
+            border-collapse: collapse;
+        }
+
+        /* Adjusted pagination color */
+        .pagination .page-link {
+            color: #007BFF;
+        }
+
+        .pagination .page-item.active .page-link {
+            background-color: #007BFF;
+            border-color: #007BFF;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <nav>
+        <ul>
+            <li><h3>JOB APPLICATION PORTAL</h3></li>
+            <li>
+                <div class="home">
+                    <a th:href="@{/Dashboard}">Home</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- Add this block at the beginning of the file to include Thymeleaf messages -->
+<div th:if="${param.success}" class="alert alert-success" xmlns:th="http://www.w3.org/1999/xhtml">
+    <strong>Success!</strong> Email sent successfully.
+</div>
+<div th:if="${param.error}" class="alert alert-danger" xmlns:th="http://www.w3.org/1999/xhtml">
+    <strong>Error!</strong> Failed to send the email.
+</div>
+<div class="centered">
+    <h2>User Management</h2>
+    <br />
+    <div class="form-inline">
+        <form th:action="@{/Manager/users/0}">
+            <div class="form-group mr-2">
+                <input type="text" name="keyword" id="keyword" class="form-control" th:value="${keyword}" placeholder="Filter By Key-Word" required />
+            </div>
+            <button type="submit" class="btn btn-primary mr-2">Search</button>
+            <button type="button" class="btn btn-secondary" onclick="clearFilter()">Remove Filter</button>
+        </form>
+    </div>
+    <br />
+    <table class="table table-bordered table-striped">
+        <thead class="table-primary">
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Role</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.firstName}"></td>
+            <td th:text="${user.lastName}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <td>
+                <span th:each="role : ${user.roles}">
+                    <span th:text="${role.name}"></span>
+                </span>
+            </td>
+            <td>
+                <form th:action="@{/Manager/approve}" method="post">
+                    <input type="hidden" name="userId" th:value="${user.id}" />
+                    <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                </form>
+                <br /><br />
+                <form th:action="@{/Manager/reject}" method="post"
+                      onsubmit="return confirm('Are you sure you want to reject this user?')">
+                    <input type="hidden" name="userId" th:value="${user.id}" />
+                    <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div
+            style="border: 3px solid white; margin: 10px; width:auto; background-color:black; color:white;">
+        <center>
+            Total Items: [[${TotalItems}]] - Page [[${currentPage}]] of [[${totalPages}]] &nbsp; - &nbsp;
+            <a th:if="${currentPage > 1}" th:href="@{/Manager/users/0}">First</a>
+            <span th:unless="${currentPage > 1}">First</span> &nbsp;&nbsp;
+            <a th:if="${currentPage > 1}" th:href="@{'/Manager/users/' + ${currentPage - 2}}">Previous </a>
+            <span th:unless="${currentPage > 1}">Previous</span> &nbsp;&nbsp;
+
+            <span th:each="i: ${#numbers.sequence(1, totalPages)}" th:if="${totalPages != 0}">
+                    <a th:if="${i != currentPage}" th:href="@{'/Manager/users/' + ${i-1}}">[[${i}]]</a>
+                    <span th:unless="${i != currentPage}">[[${i}]]</span> &nbsp;&nbsp;
+                </span>
+            <span th:each="i: ${#numbers.sequence(1, 1)}" th:if="${totalPages == 0}">
+                    <a th:if="${totalPages == 0}" th:href="@{/Manager/users/0}">[[${i}]]</a> &nbsp;&nbsp;
+                </span>
+
+            <a th:if="${currentPage < totalPages}" th:href="@{'/Manager/users/' + ${currentPage}}">Next</a>
+            <span th:unless="${currentPage < totalPages}">Next</span> &nbsp;&nbsp;
+            <a th:if="${currentPage < totalPages}" th:href="@{'/Manager/users/' + ${totalPages-1}}">Last</a>
+            <span th:unless="${currentPage < totalPages}">Last</span>
+        </center>
+    </div>
+</div>
+
+<!-- Display success message if present in session -->
+<div th:if="${session['successMessage']}" class="alert alert-success" role="alert">
+    ${session['successMessage']}
+</div>
+
+<div style="margin-left:40px; margin-top: 40px;">
+    <form class="form-inline" th:action="@{/logout}" method="post">
+        <a href="/Dashboard" class="btn btn-info mr-2">Back</a>
+        <input type="submit" class="btn btn-warning" value="Logout" />
+    </form>
+</div>
+
+<script type="text/javascript">
+    function clearFilter() {
+        window.location = '/Manager/listUsers';
+    }
+</script>
+
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () {
+        // Hide success and error messages after 10 seconds
+        setTimeout(function () {
+            var alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function (alert) {
+                alert.style.transition = 'opacity 1s ease-out';
+                alert.style.opacity = 0;
+                setTimeout(function () {
+                    alert.remove();
+                }, 1000);
+            });
+        }, 10000);
+    });
+</script>
+</body>
+
+</html>

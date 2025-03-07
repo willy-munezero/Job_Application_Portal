@@ -1,0 +1,196 @@
+/* job-list.css */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: black;
+    background: url('web.jpeg');
+    background-size: cover;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table th, .table td {
+    white-space: nowrap;
+}
+
+.page-color {
+    background-color: #f8f9fa; /* Add a background color to the pagination container */
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    padding: 20px;
+}
+
+
+
+
+h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-weight: 400;
+}
+
+.search-container input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  padding-right: 0px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: red;
+}
+
+.search-container input[type="submit"] {
+  padding: 5px;
+  background-color: #4CAF50;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+.search-container input[type="button"] {
+  padding: 5px;
+  background-color: red;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+nav ul li.logo {
+    margin-left: auto;
+}
+
+nav ul li.logo img {
+    height: 30px;
+    width: auto;
+    vertical-align: middle;
+}
+.logo {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+header {
+    background-color: #333;
+    height: 50px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+
+.job-listings {
+  width: 40%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  padding-right: 40px;
+}
+
+.job-listings th,
+.job-listings td {
+  padding: 6px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  height: 20px;
+  font-weight: bold;
+}
+
+.job-listings th {
+  font-weight: bold;
+  background-color: #000080;
+  color: white;
+}
+
+table {
+  border-collapse: collapse;
+  width: 80%;
+  font-size: 14px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 6px;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #000080;
+  color: white;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+.add-job-button {
+  margin-bottom: 20px;
+}
+
+.search-container {
+  margin-bottom: 5px;
+}
+
+input[type=text] {
+  padding: 6px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+.page-color {
+  background-color: ;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  padding: 20px;
+}

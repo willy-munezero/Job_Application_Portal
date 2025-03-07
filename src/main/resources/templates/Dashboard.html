@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Job Portal Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <style>
+        /* Reset default margin and padding */
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navigation bar styles */
+        header {
+            background-color: transparent;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: gray;
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-right: 10px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Change the color on hover */
+        }
+
+        /* Background image styles */
+        .background-image {
+            background-image: url('/css/web.jpeg'); /* Replace with the path to your background image */
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            opacity: 0.5; /* Adjust the opacity value as desired */
+            z-index: -1;
+        }
+
+        .centered-text {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add text shadow for better readability */
+        }
+
+        /* Logo styles */
+        nav ul li.logo {
+            margin-left: auto;
+        }
+
+        nav ul li.logo img {
+            height: 30px;
+            width: auto;
+            vertical-align: middle;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a th:href="@{/Dashboard}">Home</a></li>
+            <li><a th:href="@{/jobs/list}">Available Job</a></li>
+            <li><a th:href="@{/Manager/show}" sec:authorize="hasRole('ROLE_OPERATIONS_MANAGER')">Register new User</a></li>
+            <li><a th:href="@{/jobs/showFormForAdd}" sec:authorize="hasRole('ROLE_EMPLOYEER')">Add Job</a></li>
+            <li><div class="logout"><a th:href="@{/showMyLoginPage}">Logout</a></div></li>
+            <li><a th:href="@{/Manager/listUsers}" sec:authorize="hasRole('ROLE_OPERATIONS_MANAGER')">User Management</a></li>
+            <li class="logo"><img src="/css/rwanda.png" alt="Logo"></li>
+        </ul>
+    </nav>
+</header>
+<div class="background-image"></div>
+<div class="centered-text">
+    <h1>RWANDA JOB SEEKING PORTAL</h1>
+</div>
+<div class="gif-container">
+    <img src="/css/giphy.gif" alt="Job Available GIF">
+</div>
+<!-- Rest of the content -->
+</body>
+</html>

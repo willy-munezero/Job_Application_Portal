@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head>
+	<title>Login Page</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Reference Bootstrap files -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<!-- Custom CSS -->
+	<style>
+        body {
+            background-image: url('/css/web.jpeg');
+           background-size: cover;
+            background-position: center;
+
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.8);
+        }
+nav ul li.logo {
+    margin-left: auto;
+}
+
+nav ul li.logo img {
+    height: 30px;
+    width: auto;
+    vertical-align: middle;
+}
+.logo {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+header {
+    background-color: #333;
+    height: 50px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px;
+}
+    </style>
+</head>
+
+<body>
+<header>
+	<nav>
+		<ul>
+			<li><h3>RWANDA JOB SEEKING PORTAL</h3></li>
+
+
+			<li class="logo"><img src="/css/rwanda.png" alt="Logo"></li>
+		</ul>
+	</nav>
+</header>
+
+<div class="container">
+
+	<div class="card col-md-6">
+
+		<div class="card-header">
+			<h5 class="card-title">Sign In</h5>
+		</div>
+
+		<div class="card-body">
+
+			<!-- Login Form -->
+			<form th:action="@{/authenticateTheUser}" method="POST">
+
+				<!-- Place for messages: error, alert, etc. -->
+				<div th:if="${param.error}" class="alert alert-danger">
+					Invalid username and password.
+				</div>
+
+				<div th:if="${param.logout}" class="alert alert-success">
+					You have been logged out.
+				</div>
+
+				<!-- Username -->
+				<div class="form-group">
+					<label for="username">Email</label>
+					<input type="text" id="username" name="username" class="form-control" placeholder="Email" required>
+				</div>
+
+				<!-- Password -->
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+				</div>
+
+				<!-- Login/Submit Button -->
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Login</button>
+				</div>
+
+			</form>
+			<div class="text-center mt-2">
+				<a th:href="@{/Manager/loadForgotPassword}" class="text-decoration-none fs-5">Forget Password</a>
+			</div>
+
+		</div>
+
+		<div class="card-footer">
+			<a th:href="@{/Manager/show}" class="btn btn-secondary">Register New User</a>
+		</div>
+
+	</div>
+
+</div>
+
+</body>
+
+</html>
